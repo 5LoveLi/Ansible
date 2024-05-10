@@ -1,0 +1,15 @@
+# core
+ansible==9.5.1
+netaddr==1.2.1
+molecule==24.2.1
+
+# linters
+ansible-lint==24.2.3
+yamllint==1.35.1
+
+# verify
+pytest-testinfra==10.1.0
+
+# base
+pip==24.0
+setuptools==69.5.1

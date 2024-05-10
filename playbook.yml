@@ -1,0 +1,8 @@
+---
+- name: Install common role on host
+  hosts: all
+  become: yes
+  tasks:
+    - name: Install docker
+      ansible.builtin.import_role:
+        name: geerlingguy.docker
