@@ -1,15 +1,21 @@
-.PHONY: deps docker minio common run
+.PHONY: deps docker minio common run nginx app
 
-run: deps common docker minio
+run: deps common docker minio nginx app
 
 common: deps
-	ansible-playbook -i inventory.ini common.yml --diff
+	ansible-playbook -i inventory.ini playbooks/common.yml --diff
+
+nginx:
+	ansible-playbook -i inventory.ini playbooks/nginx.yml --diff
 
 docker: deps
-	ansible-playbook -i inventory.ini docker.yml --diff
+	ansible-playbook -i inventory.ini playbooks/docker.yml --diff
 
 minio: deps
-	ansible-playbook -i inventory.ini minio.yml --diff
+	ansible-playbook -i inventory.ini playbooks/minio.yml --diff
+
+app:
+	ansible-playbook -i inventory.ini playbooks/app.yml --diff
 
 deps:
-	ansible-galaxy role install -r requirements.yml -p .temp
+	ansible-galaxy role install -r requirements.yml -p .temp 

@@ -1,19 +1,25 @@
 ---
-- name: Ensure Nginx is at the latest version
+- name: Ensure Nginx is installed
   ansible.builtin.apt:
     name: nginx
-    state: latest
+    state: present
     update_cache: true
 
-- name: Start Nginx
+- name: Service nginx must be started
   ansible.builtin.service:
     name: nginx
     state: started
     enabled: true
 
+- name: Delete default nginx config
+  ansible.builtin.file:
+    name: /etc/nginx/sites-enabled/default
+    state: absent
+  notify: Nginx reload
+
 - name: Configure nginx config
   ansible.builtin.template:
     src: nginx.conf.j2
     dest: /etc/nginx/conf.d/default.conf
-    mode: "0755"
-  notify: nginx reload
+    mode: "0644"
+  notify: Nginx reload

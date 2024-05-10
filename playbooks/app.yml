@@ -1,0 +1,7 @@
+- name: Install app with docker-compose
+  hosts: all
+  become: true
+  tasks:
+    - name: Install nginx and configure
+      ansible.builtin.import_role:
+        name: app

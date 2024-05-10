@@ -1,0 +1,12 @@
+server {
+    listen 80;
+
+    location /api {
+        proxy_pass http://localhost:9091;
+    }
+
+    location / {
+        proxy_pass http://localhost:9092;
+    }
+
+}

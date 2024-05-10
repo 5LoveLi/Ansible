@@ -1,0 +1,20 @@
+---
+- name: Install Docker SDK for Python
+  ansible.builtin.pip:
+    name: "{{ item }}"
+    state: present
+  loop:
+    # https://stackoverflow.com/questions/77641240/getting-docker-compose-typeerror-kwargs-from-env-got-an-unexpected-keyword-ar
+    - docker==6.1.3
+    - docker-compose
+
+- name: Generate docker-compose.yml from template
+  ansible.builtin.template:
+    src: docker-compose.yml.j2
+    dest: /opt/docker-compose.yml
+    mode: "0755"
+
+- name: Bring up services with docker-compose
+  community.docker.docker_compose:
+    project_src: /opt/
+    state: present
