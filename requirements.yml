@@ -1,3 +1,9 @@
 roles:
   - name: geerlingguy.docker
     version: 7.1.0
+  - name: ricsanfre.minio
+    version: v1.1.4
+  - name: geerlingguy.ntp
+    version: 2.5.0
+
+# collections:

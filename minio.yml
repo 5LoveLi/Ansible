@@ -1,0 +1,23 @@
+---
+- name: Install and configure Minio Server
+  hosts: all
+  become: true
+  gather_facts: true
+  roles:
+    - role: ricsanfre.minio
+      minio_root_user: "miniadmin"
+      minio_root_password: "supers1cret0"
+      minio_enable_tls: false
+      minio_buckets:
+        - name: bucket1
+          policy: read-write
+        - name: bucket2
+          policy: read-write
+      minio_users:
+        - name: user1
+          password: supers1cret0
+          buckets_acl:
+            - name: bucket1
+              policy: read-write
+            - name: bucket2
+              policy: read-only

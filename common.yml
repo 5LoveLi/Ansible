@@ -1,0 +1,24 @@
+---
+- name: Install and update deps
+  hosts: all
+  become: true
+  tasks:
+    - name: Update and upgrade all packages
+      ansible.builtin.apt:
+        upgrade: dist
+        update_cache: true
+
+    - name: Install the latest version of pip
+      ansible.builtin.pip:
+        name: "{{ item }}"
+        state: latest
+      loop:
+        - pip
+        - wheel
+        - setuptools
+
+    - name: Setup ntp role
+      ansible.builtin.import_role:
+        name: geerlingguy.ntp
+      vars:
+        ntp_timezone: Asia/Yekaterinburg
