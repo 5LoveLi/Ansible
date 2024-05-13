@@ -5,8 +5,16 @@
   tasks:
     - name: Update and upgrade all packages
       ansible.builtin.apt:
-        upgrade: dist
+        # upgrade: dist
         update_cache: true
+
+    - name: Install python3 and pip
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - python3-pip
+        - python3
 
     - name: Install the latest version of pip
       ansible.builtin.pip:

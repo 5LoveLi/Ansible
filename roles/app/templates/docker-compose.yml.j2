@@ -1,6 +1,20 @@
 version: '3'
 services:
-  web:
-    image: nginx
+  frontend:
+    image: pascallove/video-hosting-frontend:latest
+    pull_policy: always
+    restart: unless-stopped
     ports:
-      - "8080:80"
+      - "3000:80"
+  backend:
+    image: pascallove/video-hosting-backend:latest
+    pull_policy: always
+    restart: unless-stopped
+    volumes:
+      - /opt/sql_app.db:/app/sql_app.db:rw
+    ports:
+      - "8000:8000"
+    environment:
+      - SECRET_KEY={{ app_secret_key }}
+      {# - ACCESS_KEY_MINIO="{{ app_access_key_minio }}"
+      - SECRET_KEY_MINIO="{{ app_secret_key_minio }}" #}
